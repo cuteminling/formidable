@@ -163,6 +163,8 @@
                         }
                         this.setInitialValues();
                     }
+                    // redirect to submitted page
+                    this.$router.push('/events/submitted');
                 }
             },
             getTimeslotFormatted(timeslot, seatsLeft) {

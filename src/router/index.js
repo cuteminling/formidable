@@ -17,6 +17,11 @@ const routes = [
         redirect: '/events'
     },
     {
+        path: '/events/submitted',
+        name: 'Submitted',
+        component: Submitted
+    },
+    {
         path: '/events/:id',
         name: 'Register',
         component: Register
@@ -25,11 +30,6 @@ const routes = [
         path: '/events',
         name: 'Event',
         component: Event
-    },
-    {
-        path: '/events/:id/submitted',
-        name: 'Submitted',
-        component: Submitted
     },
     {
         path: '/login',

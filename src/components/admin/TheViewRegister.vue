@@ -79,17 +79,22 @@
                 </h3>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div v-if="records" class="text-center">
-                    <b-pagination
-                            v-model="currentPage"
-                            :total-rows="totalRows"
-                            :per-page="perPage"
-                            align="center">
-                    </b-pagination>
-                    <i>{{ Object.values(records).length }} people have signed up for the event</i>
-                </div>
+        <div v-if="records" class="row">
+            <div class="col text-center">
+                <b-pagination
+                        v-model="currentPage"
+                        :total-rows="totalRows"
+                        :per-page="perPage"
+                        align="center">
+                </b-pagination>
+                <i>{{ Object.values(records).length }} people have signed up for the event</i>
+                <br>
+                <b-button class="mt-3" variant="primary">
+                    <AppJsonCSV :labels="dlLabels" :data="dlOptions" name="records.csv"
+                                :fields="dlFields"
+                    >Download CSV
+                    </AppJsonCSV>
+                </b-button>
             </div>
         </div>
         <div class="row">
@@ -101,7 +106,13 @@
                     <h6>fields</h6>
                     <pre>{{ fields }}</pre>
                     <h6>options</h6>
-                    <pre class="m-0">{{ options }}</pre>
+                    <pre>{{ options }}</pre>
+                    <h6>dl fields</h6>
+                    <pre>{{ dlFields }}</pre>
+                    <h6>dl labels</h6>
+                    <pre>{{ dlLabels }}</pre>
+                    <h6>dl options</h6>
+                    <pre>{{ dlOptions }}</pre>
                 </b-card>
             </div>
         </div>
@@ -110,12 +121,14 @@
 
 <script>
     import AppFormSelector from "@/components/form/AppFormSelector";
+    import JsonCSV from 'vue-json-csv';
     import moment from 'moment';
 
     export default {
         name: "TheViewRegister",
         components: {
-            AppFormSelector
+            AppFormSelector,
+            AppJsonCSV: JsonCSV
         },
         data() {
             return {
@@ -153,6 +166,49 @@
             }
         },
         computed: {
+            dlOptions() {
+                // flatten option for download
+                const formatted = [];
+                for (let item of this.options) {
+                    formatted.push({...item});
+                }
+                for (let item of formatted) {
+                    item.createdAt = moment(item.createdAt).format();
+                    item.$datetime = moment(item.timeslot.datetime).format();
+                    item.$duration = item.timeslot.duration
+                    item.timeslot = undefined;
+                    item.isCheckedIn = item.isCheckedIn ? moment(item.isCheckedIn).format() : 'false';
+                }
+                return formatted;
+            },
+            dlLabels() {
+                const formatted = {};
+                for (let item of this.fields) {
+                    if (item.key !== 'actions') {
+                        if (item.key === 'timeslot') {
+                            formatted['$datetime'] = 'Registered Time';
+                            formatted['$duration'] = 'Registered Duration';
+                        } else {
+                            formatted[item.key] = item.label;
+                        }
+                    }
+                }
+                return formatted;
+            },
+            dlFields() {
+                const formatted = [];
+                for (let item of this.fields) {
+                    if (item.key !== 'actions') {
+                        if (item.key === 'timeslot') {
+                            formatted.push('$datetime');
+                            formatted.push('$duration');
+                        } else {
+                            formatted.push(item.key);
+                        }
+                    }
+                }
+                return formatted;
+            },
             options() {
                 // flatten records for table use
                 if (this.records) {
