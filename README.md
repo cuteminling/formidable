@@ -1,5 +1,7 @@
 # formidable
 
+Block-time booking, registration system for small-scale organizations, featuring realtime feedback and e-ticket confirmation.
+
 ## Project setup
 ```
 npm install
