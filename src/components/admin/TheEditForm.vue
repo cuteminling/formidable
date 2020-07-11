@@ -30,23 +30,21 @@
                     </b-form-group>
 
                     <hr>
-                    <b-form-group label="Custom Fields (Not editable):" label-for="inputEditFields">
+                    <b-form-group label="Custom Fields:" label-for="inputEditFields">
                         <div class="row">
                             <div class="col-sm">
-                                <b-form>
+                                <b-form @submit="addField">
                                     <b-form-input
                                             id="inputEditFields"
                                             v-model="fieldBuilder.title"
                                             placeholder="Enter field name"
                                             required
-                                            disabled
                                             class="mb-2"
                                     ></b-form-input>
                                     <b-form-select
                                             v-model="fieldBuilder.type"
                                             :options="fieldTypes"
                                             required
-                                            disabled
                                             class="mb-2"
                                     ></b-form-select>
                                     <b-form-tags
@@ -55,16 +53,14 @@
                                             class="mb-2"
                                             placeholder="Add option"
                                             duplicate-tag-text="duplicate option(s)"
-                                            disabled
                                             remove-on-delete
                                     ></b-form-tags>
                                     <b-form-checkbox
                                             v-model="fieldBuilder.isRequired"
-                                            disabled
                                             class="mb-2"
                                     >Required
                                     </b-form-checkbox>
-                                    <b-button block disabled type="submit" variant="secondary" class="mb-2">Add
+                                    <b-button block type="submit" variant="secondary" class="mb-2">Add
                                     </b-button>
                                 </b-form>
                             </div>
@@ -218,6 +214,29 @@
             }
         },
         methods: {
+            getFieldIndex() {
+                return this.form.fields.length;
+            },
+            addField(evt) {
+                evt.preventDefault();
+                let newField = {
+                    title: this.fieldBuilder.title,
+                    type: this.fieldBuilder.type,
+                    status: this.fieldBuilder.isRequired ? 'required' : 'optional',
+                    index: this.getFieldIndex()
+                };
+                if (this.fieldBuilder.type === 'Options') {
+                    newField.options = this.fieldBuilder.options;
+                }
+                this.form.fields.push(newField);
+                this.makeToast('Updated !', `Custom Field "${this.fieldBuilder.title}" created.`, 'info');
+                this.fieldBuilder = {
+                    title: '',
+                    type: null,
+                    isRequired: true,
+                    options: []
+                }
+            },
             addTimeslot(evt) {
                 evt.preventDefault();
                 let newTime = {
