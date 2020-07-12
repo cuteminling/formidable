@@ -199,14 +199,12 @@
                 basicsRef.on('value', async (data) => {
                     if (!this.isLoaded) {
                         if (data.val().isAvailable) {
-                            console.log('form available');
                             this.event = data.val();
                             // set initial values
                             for (let i = 0; i < this.event.fields.length; i++) {
                                 this.form.fields[this.event.fields[i].index] = this.getInitialValue(this.event.fields[i].type);
                             }
                         } else {
-                            console.log('form unavailable');
                             this.isAvailable = false;
                         }
                         this.isLoaded = true;

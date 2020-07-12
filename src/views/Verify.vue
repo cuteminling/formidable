@@ -59,19 +59,14 @@
                 this.record = data.val();
                 this.hasRecord = this.record !== null;
                 if (this.hasRecord) {
-                    console.log('has record');
                     if (!this.record.isCheckedIn) {
                         // verification success, check in
                         this.checkInRecord();
                         this.isSuccess = true;
                     } else {
                         // verification expired
-                        console.log('expired');
                         this.isSuccess = false;
                     }
-                } else {
-                    // verification failed
-                    console.log('no record');
                 }
                 this.isLoaded = true;
             });

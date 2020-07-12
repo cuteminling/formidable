@@ -163,9 +163,6 @@
 
                     <b-button block type="submit" variant="primary">Submit</b-button>
                 </b-form>
-                <b-card class="mt-3" header="Form Data Result">
-                    <pre class="m-0">{{ form }}</pre>
-                </b-card>
             </div>
         </div>
     </div>
@@ -278,7 +275,6 @@
             },
             removeField(item) {
                 let removeIndex = this.form.fields.indexOf(item);
-                console.log(removeIndex)
                 if (removeIndex !== -1) {
                     this.form.fields.splice(removeIndex, 1);
                     this.makeToast('Updated !', `Custom Field "${item.title}" removed.`, 'warning');
@@ -286,7 +282,6 @@
             },
             removeTime(item) {
                 let removeIndex = this.form.timeslots.indexOf(item);
-                console.log(removeIndex)
                 if (removeIndex !== -1) {
                     this.form.timeslots.splice(removeIndex, 1);
                 }
@@ -307,7 +302,6 @@
                     });
                     this.makeToast('Publication Success !', 'The new event is now live for all visitors.', 'success');
                 } catch (e) {
-                    console.log(e);
                     this.makeToast('Publication Failed !', 'An error occurred during submission. Contact the admins for further supports.','danger');
                 }
             },

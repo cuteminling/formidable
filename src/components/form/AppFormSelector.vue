@@ -23,10 +23,6 @@
                         value: key
                     });
                 }
-                console.log([
-                    {text: 'Select Form', value: null},
-                    ...formatted
-                ]);
                 return [
                     {text: 'Select Form', value: null},
                     ...formatted
@@ -42,7 +38,6 @@
             // fetch data from server
             const basicsRef = this.$store.state.db.ref('basics');
             basicsRef.on('value', (data) => {
-                console.log(data.val());
                 this.basics = data.val();
             });
         }

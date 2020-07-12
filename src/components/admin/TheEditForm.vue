@@ -161,10 +161,6 @@
                 </b-form>
                 <!-- empty template -->
                 <h3 v-else class="text-center font-italic font-weight-light">Select a Form to Start...</h3>
-                <b-card class="mt-3" header="Form Data Result">
-                    <h3>{{ formSelected }}</h3>
-                    <pre class="m-0">{{ form }}</pre>
-                </b-card>
             </div>
         </div>
     </div>
@@ -260,7 +256,6 @@
             },
             removeTime(item) {
                 let removeIndex = this.form.timeslots.indexOf(item);
-                console.log(removeIndex)
                 if (removeIndex !== -1) {
                     this.form.timeslots.splice(removeIndex, 1);
                 }
@@ -280,7 +275,6 @@
                     });
                     this.makeToast('Update Success !', 'The updated event is now live for all visitors.', 'success');
                 } catch (e) {
-                    console.log(e);
                     this.makeToast('Update Failed !', 'An error occurred during submission. Contact the admins for further supports.', 'danger');
                 }
             },
@@ -303,7 +297,6 @@
                     // fetch form data
                     const formRef = this.$store.state.db.ref('forms');
                     formRef.child(this.formSelected).once('value', (data) => {
-                        console.log(data.val());
                         this.form = data.val();
                         this.makeToast('Form Loaded !', 'You can now edit and update the selected form.', 'info');
                     });

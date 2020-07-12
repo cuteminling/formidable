@@ -97,25 +97,6 @@
                 </b-button>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <b-card class="mt-3" header="Form Data Result">
-                    <h3>{{ formSelected }}</h3>
-                    <h6>form</h6>
-                    <pre>{{ form }}</pre>
-                    <h6>fields</h6>
-                    <pre>{{ fields }}</pre>
-                    <h6>options</h6>
-                    <pre>{{ options }}</pre>
-                    <h6>dl fields</h6>
-                    <pre>{{ dlFields }}</pre>
-                    <h6>dl labels</h6>
-                    <pre>{{ dlLabels }}</pre>
-                    <h6>dl options</h6>
-                    <pre>{{ dlOptions }}</pre>
-                </b-card>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -154,13 +135,11 @@
                 try {
                     const confirm = await this.makeModal('Remove Record', 'Are you sure you want to remove the selected record? This process will be irreversible.');
                     if (confirm) {
-                        console.log('deleting record ' + key);
                         const recRef = this.$store.state.db.ref('/records').child(this.formSelected).child(key);
                         await recRef.remove();
                         this.makeToast('Record Removed!', 'Successfully removed record.', 'success');
                     }
                 } catch (e) {
-                    console.log(e);
                     this.makeToast('Failed to Remove Record!', 'An error occurred while removing record. Contact the admins for further support.', 'danger');
                 }
             }
@@ -308,7 +287,6 @@
                     // fetch form data
                     const formRef = this.$store.state.db.ref('forms');
                     formRef.child(this.formSelected).once('value', (data) => {
-                        console.log(data.val());
                         this.form = data.val();
                         this.makeToast('Form Loaded !', 'You can now view the selected form.', 'info');
                     });

@@ -66,7 +66,6 @@
                         key: key
                     });
                 }
-                console.log(formatted);
                 return formatted;
             }
         },
@@ -74,7 +73,6 @@
             // update events
             const basicsRef = this.$store.state.db.ref('basics');
             basicsRef.on('value', (data) => {
-                console.log(data.val());
                 this.events = data.val();
             });
         }
