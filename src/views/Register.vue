@@ -22,10 +22,6 @@
                         </b-form-group>
                         <b-button variant="primary" type="submit">Submit</b-button>
                     </b-form>
-                    <b-card class="mt-3" header="Form Data Result">
-                        <pre class="m-0">{{ form }}</pre>
-                        <pre class="m-0">{{ event }}</pre>
-                    </b-card>
                 </b-card-body>
             </b-card>
             <h3 v-else class="lead">

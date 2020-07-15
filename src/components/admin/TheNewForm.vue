@@ -180,22 +180,10 @@
                     desc: '',
                     fields: [
                         {
-                            title: 'Name',
-                            type: 'String',
-                            status: 'default',
-                            index: 0
-                        },
-                        {
                             title: 'Email',
-                            type: 'String',
+                            type: 'Email',
                             status: 'default',
                             index: 1
-                        },
-                        {
-                            title: 'Phone',
-                            type: 'String',
-                            status: 'default',
-                            index: 2
                         }
                     ],
                     timeslots: [],
