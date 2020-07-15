@@ -61,7 +61,7 @@
                              :filter-included-fields="filterBy"
                              @filtered="onFiltered">
                         <template v-slot:cell(timeslot)="row">
-                            {{ row.value.datetime | moment('LLL') }} {{ `, for ${row.value.duration} min` }}
+                            {{ getDuration(row.value.datetime, row.item.duration) + ' (' + row.value.duration + ' min)' }}
                         </template>
                         <template v-slot:cell(createdAt)="row">
                             {{ row.value | moment('LLL') }}
@@ -126,6 +126,15 @@
             };
         },
         methods: {
+            getDuration(start, dur) {
+                const startMoment = moment(start);
+                const endMoment = startMoment.clone().add(dur, 'm');
+                if (startMoment.isSame(endMoment, 'day')) {
+                    return startMoment.format('LLL') + ' ~ ' + endMoment.format('h:mm A');
+                } else {
+                    return startMoment.format('LLL') + ' ~ ' + endMoment.format('LLL');
+                }
+            },
             onFiltered(filteredItems) {
                 // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
@@ -222,7 +231,7 @@
                 ];
                 for (let {datetime, duration} of this.form.timeslots) {
                     formatted.push({
-                        text: `${moment(datetime).format('LLL')}, for ${duration} min`,
+                        text: this.getDuration(datetime, duration) + ' (' + duration + ' min)',
                         value: {
                             datetime,
                             duration

@@ -132,7 +132,7 @@
                                         show-empty
                                 >
                                     <template v-slot:cell(datetime)="row">
-                                        {{ row.item.datetime | moment('LLL') }}
+                                        {{ getDuration(row.item.datetime, row.item.duration) }}
                                     </template>
                                     <template v-slot:cell(max)="row">
                                         {{ row.item.max === -1 ? 'unlimited' : row.item.max }}
@@ -210,6 +210,15 @@
             }
         },
         methods: {
+            getDuration(start, dur) {
+                const startMoment = moment(start);
+                const endMoment = startMoment.clone().add(dur, 'm');
+                if (startMoment.isSame(endMoment, 'day')) {
+                    return startMoment.format('LLL') + ' ~ ' + endMoment.format('h:mm A');
+                } else {
+                    return startMoment.format('LLL') + ' ~ ' + endMoment.format('LLL');
+                }
+            },
             getFieldIndex() {
                 return this.form.fields.length;
             },
