@@ -16,17 +16,23 @@
         },
         computed: {
             options() {
-                const formatted = [];
-                for (let [key, value] of Object.entries(this.basics)) {
-                    formatted.push({
-                        text: value.title,
-                        value: key
-                    });
+                if (this.basics) {
+                    const formatted = [];
+                    for (let [key, value] of Object.entries(this.basics)) {
+                        formatted.push({
+                            text: value.title,
+                            value: key
+                        });
+                    }
+                    return [
+                        {text: 'Select Form', value: null},
+                        ...formatted
+                    ]
+                } else {
+                    return [
+                        {text: 'Select Form', value: null}
+                    ]
                 }
-                return [
-                    {text: 'Select Form', value: null},
-                    ...formatted
-                ]
             }
         },
         methods: {

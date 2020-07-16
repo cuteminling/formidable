@@ -10,7 +10,7 @@
                 </b-form>
             </div>
         </div>
-        <div v-if="formatted.length > 0" class="row">
+        <div v-if="this.events" class="row">
             <div class="col">
                 <b-card-group columns class="mt-3">
                     <div v-for="(evt, i) in formatted" :key="i">
