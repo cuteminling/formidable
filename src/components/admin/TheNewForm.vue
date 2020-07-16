@@ -183,7 +183,7 @@
                             title: 'Email',
                             type: 'Email',
                             status: 'default',
-                            index: 1
+                            index: 0
                         }
                     ],
                     timeslots: [],
