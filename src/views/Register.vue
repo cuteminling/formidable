@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col">
             <h1>Registration</h1>
-            <b-card v-if="isAvailable" class="shadow">
+            <b-card v-if="isAvailable && event" class="shadow">
                 <b-card-body>
                     <b-card-title>{{ event.title }}</b-card-title>
                     <b-card-text>
