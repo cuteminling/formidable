@@ -55,8 +55,10 @@ exports.ticketMailer = functions.https.onRequest((req, res) => {
         // returning result
         return transporter.sendMail(mailOptions, (error, info) => {
             if(error){
+                console.log(error);
                 return res.send(error.toString());
             }
+            console.log('sended');
             return res.send('Sended');
         });
     });
