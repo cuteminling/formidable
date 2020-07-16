@@ -95,8 +95,6 @@
         methods: {
             getTimeslotCount(index) {
                 if (this.timeslotCount && this.timeslotCount.get(index) !== undefined) {
-                    console.log('ind: ' + index);
-                    console.log('count: ' + this.timeslotCount.get(index));
                     return this.timeslotCount.get(index);
                 } else {
                     return 0;
@@ -113,10 +111,6 @@
                             arr.push(records[key].timeslot.index);
                         }
                         const map = arr.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
-                        for (let [key, value] of map.entries()) {
-                            console.log( key + ' : ' + value);
-                        }
-                        console.log(map.entries());
                         this.timeslotCount = map;
                     }
                 });
@@ -131,7 +125,6 @@
                     this.makeToast('Registration Success !', 'An confirmation mail has been sent to your email address.', 'success');
                     return newRecordRef.key;
                 } catch (e) {
-                    console.log(e);
                     this.makeToast('Registration Failed !', 'An error occurred during registration. Contact the admins for further supports.', 'danger');
                 }
             },
@@ -146,13 +139,6 @@
                     if (key) {
                         // send e-ticket
                         this.axios.post("https://us-central1-pas-portal.cloudfunctions.net/ticketMailer", {
-                            dest: this.form.fields[0],
-                            event: this.$route.params.id,
-                            record: key,
-                            eventName: this.event.title,
-                            fields: this.flattenedForm
-                        });
-                        console.log({
                             dest: this.form.fields[0],
                             event: this.$route.params.id,
                             record: key,
