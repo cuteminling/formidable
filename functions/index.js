@@ -1,10 +1,3 @@
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
 // configs:
 // ticketmailer.sender = mail address
 // ticketmailer.passwd = mail password
@@ -53,7 +46,7 @@ exports.ticketMailer = functions.https.onRequest((req, res) => {
             to: dest,
             bcc: [functions.config().ticketmailer.sender],
             subject: 'Event E-ticket', // email subject
-            html: render(functions.config().ticketmailer.title, eventName, req.body.fields, ticket, 'https://simplycodebased.org')
+            html: render(functions.config().ticketmailer.title, eventName, req.body.fields, ticket, functions.config().ticketmailer.url)
         };
 
         // encode inline base 64
