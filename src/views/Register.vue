@@ -145,7 +145,7 @@
                     const key = await this.pushNewRecord(this.form);
                     if (key) {
                         // send e-ticket
-                        this.axios.post(process.env.MAILER_URL, {
+                        this.axios.post("https://us-central1-pas-portal.cloudfunctions.net/ticketMailer\n", {
                             dest: this.form.fields[1],
                             event: this.$route.params.id,
                             record: key,
